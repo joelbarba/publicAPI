@@ -309,5 +309,8 @@ app.post('playlist/:id/statistics', (req, res) => {
   res.status(200).send({ response: 'ok' });
 });
 
+app.get('/hello', (req, res) => res.status(200).send({ res: 'Hello World' }));
+
 // curl --request GET -H "Content-Type: application/json" http://localhost:8001/playlists
-// curl --request GET -H "Content-Type: application/json" https://publicapi-g6k5.onrender.com/playlists
+// curl --request GET -H "Content-Type: application/json" https://publicapi-g6k5.onrender.com:8001/constants
+// curl --request GET -H "Content-Type: application/json" https://publicapi-g6k5.onrender.com:8001/playlists

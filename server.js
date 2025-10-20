@@ -268,8 +268,11 @@ function getConstants() {
       { label: "24 hours", value: 86400000 },
     ],
     backgrounds: [
-      { name: "Background 1", color: "#DAC9B6", img: "<extension-base-path>/assets/background-DAC9B6.png" },
-      { name: "Background 2", color: "#E4E0DA", img: "<extension-base-path>/assets/background-E4E0DA.svg" },
+      { name: "Background 1", value: "#DAC9B6", img: "<extension-base-path>/assets/background-DAC9B6.png" },
+      { name: "Background 2", value: "#E4E0DA", img: "<extension-base-path>/assets/background-E4E0DA.png" },
+      { name: "Background 3", value: "#B4A79B", img: "<extension-base-path>/assets/background-B4A79B.png" },
+      { name: "Background 4", value: "#262626", img: "<extension-base-path>/assets/background-262626.png" },
+      { name: "Background 5", value: "#9B9B9B", img: "<extension-base-path>/assets/background-9B9B9B.png" },
     ],
   };
 };
@@ -312,5 +315,8 @@ app.post('playlist/:id/statistics', (req, res) => {
 app.get('/hello', (req, res) => res.status(200).send({ res: 'Hello World' }));
 
 // curl --request GET -H "Content-Type: application/json" http://localhost:8001/playlists
-// curl --request GET -H "Content-Type: application/json" https://publicapi-g6k5.onrender.com:8001/constants
-// curl --request GET -H "Content-Type: application/json" https://publicapi-g6k5.onrender.com:8001/playlists
+// curl --request GET -H "Content-Type: application/json" https://publicapi-g6k5.onrender.com/hello
+// curl --request GET -H "Content-Type: application/json" https://publicapi-g6k5.onrender.com/playlists
+
+
+// curl --request GET -H "Content-Type: application/json" -H "Accept-Language: en" https://publicapi-g6k5.onrender.com:8001/hello

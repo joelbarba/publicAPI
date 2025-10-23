@@ -50,35 +50,34 @@ const fakeArtworksResponse = {
   artworks: [
     {
       id: "art001",
-      title: "Artwork 001 - Full Screen",
+      title: "Artwork 001",
       artist_name: "Artist 001",
-      thumbnail_url: "https://fastly.picsum.photos/id/563/300/200.jpg?hmac=2zX8b2Akr3vClB4c0Bx6LAWb84LX0QuFxjzdkYezFlU",
-      signed_url:
-        "https://fastly.picsum.photos/id/10/1400/788.jpg?hmac=ef5YQjW80dqN0r7i0ie6nxrGx5HjgQ0uidjJGYyEfwk",
+      thumbnail_url: "https://cdn.pixabay.com/photo/2019/03/12/17/18/trees-4051288_1280.jpg",
+      signed_url: "https://cdn.pixabay.com/photo/2019/03/12/17/18/trees-4051288_1280.jpg"
     },
     {
       id: "art002",
-      title: "Artwork 002 - Photography",
+      title: "Artwork 002 - panoramic",
       artist_name: "Artist 002",
-      thumbnail_url: "https://fastly.picsum.photos/id/411/300/200.jpg?hmac=ev1VWFFqewY_uqDLshz8OuswpnW_0jYPN07LYuNvcB4",
+      thumbnail_url: "https://images.pexels.com/photos/13872636/pexels-photo-13872636.jpeg",
       signed_url:
-        "https://fastly.picsum.photos/id/12/2500/1667.jpg?hmac=Pe3284luVre9ZqNzv1jMFpLihFI6lwq7TPgMSsNXw2w",
+        "https://images.pexels.com/photos/13872636/pexels-photo-13872636.jpeg",
     },
     {
       id: "art003",
-      title: "Artwork 003 - Panoramic",
+      title: "Artwork 003 - Portrait",
       artist_name: "Artist 003",
-      thumbnail_url: "https://fastly.picsum.photos/id/510/300/200.jpg?hmac=b8fG9GxqHHCM9vW7Z2k3s_-tMk7ULuCFnUefY9RXgo8",
+      thumbnail_url: "https://images.pexels.com/photos/1271620/pexels-photo-1271620.jpeg",
       signed_url:
-        "https://fastly.picsum.photos/id/15/2000/1000.jpg?hmac=98qJfIPE1GgF4ZSX1HcGK6TTRYCadvGeEl0vXR9hyWo",
+        "https://images.pexels.com/photos/1271620/pexels-photo-1271620.jpeg",
     },
     {
       id: "art004",
-      title: "Artwork 004 - Portrait",
+      title: "Artwork 004 - fullscreen",
       artist_name: "Artist 004",
-      thumbnail_url: "https://fastly.picsum.photos/id/214/300/200.jpg?hmac=xAr0P6sJ-SSjhq-GSAdByEb_5k7MBsc_gXfND4uFDhM",
+      thumbnail_url: "https://images.pexels.com/photos/1435075/pexels-photo-1435075.jpeg",
       signed_url:
-        "https://fastly.picsum.photos/id/17/1667/2500.jpg?hmac=t3RyWfp8IY00yiGl8gNt9d_ZD7efVwWyBqbStPyqU2M",
+        "https://images.pexels.com/photos/1435075/pexels-photo-1435075.jpeg",
     },
   ],
   offset: 4,

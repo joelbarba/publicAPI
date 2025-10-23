@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import nocache from "nocache";
+import cors from "cors";
 
 const port = 8001;
 const app = express();
@@ -9,6 +10,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: ["*/*"] }));
 app.use(nocache());
+app.use(cors()); 
+
 // function redirectUnmatched(req, res) { res.redirect('/'); }
 // app.use(redirectUnmatched);
 

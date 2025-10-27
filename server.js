@@ -50,32 +50,38 @@ const fakeArtworksResponse = {
   artworks: [
     {
       id: "art001",
-      title: "Artwork 001",
-      artist_name: "Artist 001",
-      thumbnail_url: "https://cdn.pixabay.com/photo/2019/03/12/17/18/trees-4051288_1280.jpg",
-      signed_url: "https://cdn.pixabay.com/photo/2019/03/12/17/18/trees-4051288_1280.jpg"
+      title:
+        "Reflections of Light on a Silent Horizon Beneath the Whispering Skies of a Forgotten Evening",
+      artist_name: "by Javier Aznar Gonzalez de Rueda",
+      thumbnail_url:
+        "https://cdn.pixabay.com/photo/2019/03/12/17/18/trees-4051288_1280.jpg",
+      signed_url:
+        "https://cdn.pixabay.com/photo/2019/03/12/17/18/trees-4051288_1280.jpg",
     },
     {
       id: "art002",
-      title: "Artwork 002 - panoramic",
-      artist_name: "Artist 002",
-      thumbnail_url: "https://images.pexels.com/photos/13872636/pexels-photo-13872636.jpeg",
+      title: "Rhinoceros Hornbills in the Canopy",
+      artist_name: "by Tim Laman",
+      thumbnail_url:
+        "https://images.pexels.com/photos/13872636/pexels-photo-13872636.jpeg",
       signed_url:
         "https://images.pexels.com/photos/13872636/pexels-photo-13872636.jpeg",
     },
     {
       id: "art003",
-      title: "Artwork 003 - Portrait",
-      artist_name: "Artist 003",
-      thumbnail_url: "https://images.pexels.com/photos/1271620/pexels-photo-1271620.jpeg",
+      title: "Idea",
+      artist_name: "by Javier Aznar Gonzalez de Rueda",
+      thumbnail_url:
+        "https://images.pexels.com/photos/1271620/pexels-photo-1271620.jpeg",
       signed_url:
         "https://images.pexels.com/photos/1271620/pexels-photo-1271620.jpeg",
     },
     {
       id: "art004",
-      title: "Artwork 004 - fullscreen",
+      title: "Artwork 004",
       artist_name: "Artist 004",
-      thumbnail_url: "https://images.pexels.com/photos/1435075/pexels-photo-1435075.jpeg",
+      thumbnail_url:
+        "https://images.pexels.com/photos/1435075/pexels-photo-1435075.jpeg",
       signed_url:
         "https://images.pexels.com/photos/1435075/pexels-photo-1435075.jpeg",
     },
@@ -208,7 +214,7 @@ function getPlaylist(playlistId) {
 }
 
 
-function getPlaylistArtworks(playlistId, query = {}) {
+function getPlaylistArtworks(playlistId, query = {}, onlyThumbnails = false) {
   // limit: number;  // number paginated artwors returned in artworks[]
   // offset: number; // first artwork to return in the pagination
   // play_randomly: Boolean; // whether to return the artworks ordered, or shuffledes
@@ -220,22 +226,27 @@ function getPlaylistArtworks(playlistId, query = {}) {
     console.log('playlistId = ', playlistId);
     console.log('limit = ', limit);
     console.log('offset = ', offset);
+
+    const artworks = playlist.artworks.map(({ id, title, artist_name, thumbnail_url, signed_url }) => {
+      const imgLink = onlyThumbnails ? { thumbnail_url } : { signed_url };
+      return { id, title, artist_name, ...imgLink };
+    })
     
-    let page = playlist.artworks.slice(offset, offset + limit); // 60-68 [60, 61, 62]
+    let page = artworks.slice(offset, offset + limit); // 60-68 [60, 61, 62]
     console.log(`page = slice[${offset}, ${offset + limit}] = `, page.map(p => p.id));
 
     const loopSize = limit - page.length; // 8 - 3 = 5
-    if (loopSize > 0 && playlist.artworks.length > limit) {
-      const pageLoop = playlist.artworks.slice(0, loopSize);
+    if (loopSize > 0 && artworks.length > limit) {
+      const pageLoop = artworks.slice(0, loopSize);
       console.log(`page2 = slice[0, ${loopSize}] = `, pageLoop.map(p => p.id));
       page = [...page, ...pageLoop];
     }
 
     return {
       title         : playlist.title,
-      artwork_count : playlist.artworks.length,
+      artwork_count : artworks.length,
       artworks      : page,
-      next_offset   : (offset + limit) % playlist.artworks.length,
+      next_offset   : (offset + limit) % artworks.length,
     };
   }
 }
@@ -248,6 +259,8 @@ function getPlaylistArtworks(playlistId, query = {}) {
 function getConstants() {
   return {
     play_times: [
+      { label: "4 seconds", value: 3000 },
+      { label: "8 seconds", value: 4000 },
       { label: "15 seconds", value: 15000 },
       { label: "20 seconds", value: 20000 },
       { label: "30 seconds", value: 30000 },
@@ -310,6 +323,12 @@ app.get('/playlists/:id/artworks', (req, res) => {
   return res.status(404).send({ error: 'playlist not found' });
 });
 
+app.get('/playlists/:id/artwork-thumbnails', (req, res) => {
+  const data = getPlaylistArtworks(req.params.id, req.query, true);
+  if (data) { return res.status(200).send(data); }
+  return res.status(404).send({ error: 'playlist not found' });
+});
+
 app.post('playlist/:id/statistics', (req, res) => {
   res.status(200).send({ response: 'ok' });
 });
@@ -317,8 +336,13 @@ app.post('playlist/:id/statistics', (req, res) => {
 app.get('/hello', (req, res) => res.status(200).send({ res: 'Hello World' }));
 
 // curl --request GET -H "Content-Type: application/json" http://localhost:8001/playlists
+// curl --request GET -H "Content-Type: application/json" http://localhost:8001/playlists/pl002/artworks
+// curl --request GET -H "Content-Type: application/json" http://localhost:8001/playlists/pl002/artwork-thumbnails
+
 // curl --request GET -H "Content-Type: application/json" https://publicapi-g6k5.onrender.com/hello
 // curl --request GET -H "Content-Type: application/json" https://publicapi-g6k5.onrender.com/playlists
+// curl --request GET -H "Content-Type: application/json" https://publicapi-g6k5.onrender.com/playlists/pl002/artworks
+// curl --request GET -H "Content-Type: application/json" https://publicapi-g6k5.onrender.com/playlists/pl002/artwork-thumbnails
 
 
-// curl --request GET -H "Content-Type: application/json" -H "Accept-Language: en" https://publicapi-g6k5.onrender.com:8001/hello
+

@@ -330,6 +330,9 @@ app.get('/playlists/:id/artwork-thumbnails', (req, res) => {
 });
 
 app.post('playlist/:id/statistics', (req, res) => {
+  console.log('-----------------------------------------------');
+  console.log(req.body);
+  console.log('-----------------------------------------------');
   res.status(200).send({ response: 'ok' });
 });
 

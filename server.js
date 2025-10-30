@@ -223,9 +223,9 @@ function getPlaylistArtworks(playlistId, query = {}, onlyThumbnails = false) {
     const offset = Math.min(parseInt(query.offset) || 0, playlist.artworks.length - 1);
     const limit = parseInt(query.limit) || 10;
 
-    console.log('playlistId = ', playlistId);
-    console.log('limit = ', limit);
-    console.log('offset = ', offset);
+    // console.log('playlistId = ', playlistId);
+    // console.log('limit = ', limit);
+    // console.log('offset = ', offset);
 
     const artworks = playlist.artworks.map(({ id, title, artist_name, thumbnail_url, signed_url }) => {
       const imgLink = onlyThumbnails ? { thumbnail_url } : { signed_url };
@@ -233,12 +233,12 @@ function getPlaylistArtworks(playlistId, query = {}, onlyThumbnails = false) {
     })
     
     let page = artworks.slice(offset, offset + limit); // 60-68 [60, 61, 62]
-    console.log(`page = slice[${offset}, ${offset + limit}] = `, page.map(p => p.id));
+    // console.log(`page = slice[${offset}, ${offset + limit}] = `, page.map(p => p.id));
 
     const loopSize = limit - page.length; // 8 - 3 = 5
     if (loopSize > 0 && artworks.length > limit) {
       const pageLoop = artworks.slice(0, loopSize);
-      console.log(`page2 = slice[0, ${loopSize}] = `, pageLoop.map(p => p.id));
+      // console.log(`page2 = slice[0, ${loopSize}] = `, pageLoop.map(p => p.id));
       page = [...page, ...pageLoop];
     }
 
@@ -308,28 +308,33 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 app.get('/constants', (req, res) => res.status(200).send({ constants: getConstants() }));
 
 app.get('/playlists', (req, res) => {
+  console.log('GET - /playlists');
   return res.status(200).send(getPlaylists(req.query));
 });
 
 app.get('/playlists/:id', (req, res) => {
+  console.log('GET - /playlists/:id');
   const data = getPlaylist(req.params.id);
   if (data) { return res.status(200).send(data); }
   return res.status(404).send({ error: 'playlist not found' });
 });
 
 app.get('/playlists/:id/artworks', (req, res) => {
+  console.log('GET - /playlists/:id/artwork');
   const data = getPlaylistArtworks(req.params.id, req.query);
   if (data) { return res.status(200).send(data); }
   return res.status(404).send({ error: 'playlist not found' });
 });
 
 app.get('/playlists/:id/artwork-thumbnails', (req, res) => {
+  console.log('GET - /playlists/:id/artwork-thumbnails');
   const data = getPlaylistArtworks(req.params.id, req.query, true);
   if (data) { return res.status(200).send(data); }
   return res.status(404).send({ error: 'playlist not found' });
 });
 
 app.post('/playlist/:id/statistics', (req, res) => {
+  console.log('POST - /playlist/:id/statistics');
   console.log('-----------------------------------------------');
   console.log(req.body);
   console.log('-----------------------------------------------');
@@ -337,6 +342,7 @@ app.post('/playlist/:id/statistics', (req, res) => {
 });
 
 app.post('/test', (req, res) => {
+  console.log('POST - /test');
   console.log('-----------------------------------------------');
   console.log(req.body);
   console.log('-----------------------------------------------');

@@ -336,6 +336,13 @@ app.post('playlist/:id/statistics', (req, res) => {
   res.status(200).send({ response: 'ok' });
 });
 
+app.post('test', (req, res) => {
+  console.log('-----------------------------------------------');
+  console.log(req.body);
+  console.log('-----------------------------------------------');
+  res.status(200).send({ response: 'ok' });
+});
+
 app.get('/hello', (req, res) => res.status(200).send({ res: 'Hello World' }));
 
 // curl --request GET -H "Content-Type: application/json" http://localhost:8001/playlists

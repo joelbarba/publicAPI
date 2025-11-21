@@ -10,11 +10,23 @@ on:
         default: 'v1.0.0'
         required: true
         type: string
+      from:
+        description: 'The branch (develop) or hash commit to create the new RC from'
+        default: 'develop'
+        required: true
+        type: string        
 
 jobs:
   create_rc:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Send greeting
-      run: echo "Hello ${{ inputs.version }}"
+    # - name: Move PRE branch to new RC commit
+    #  run:
+    #    git checkout pre
+    #    git reset --hard ${{ inputs.from }}
+
+    - name: Tag it as a new RC
+      run:
+        git tag ${{ inputs.version }}
+      

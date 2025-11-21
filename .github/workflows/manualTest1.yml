@@ -34,5 +34,6 @@ jobs:
 
     - name: Tag it as a new RC
       run:
-        git tag mytest1
+        git tag ${{ inputs.version }}
+        git push origin tag ${{ inputs.version }}
       

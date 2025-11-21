@@ -34,5 +34,5 @@ jobs:
 
     - name: Tag it as a new RC
       run:
-        git tag 'my test1'
+        git tag mytest1
       

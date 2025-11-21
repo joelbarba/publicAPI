@@ -21,6 +21,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: Git Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
     # - name: Move PRE branch to new RC commit
     #  run:
     #    git checkout pre
@@ -28,5 +34,5 @@ jobs:
 
     - name: Tag it as a new RC
       run:
-        git tag ${{ inputs.version }}
+        git tag 'my test1'
       

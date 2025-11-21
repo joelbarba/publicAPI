@@ -1,0 +1,20 @@
+# This is a basic workflow that is manually triggered
+
+name: Manual workflow test 1
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version of the Release Candidate'
+        default: 'v1.0.0'
+        required: true
+        type: string
+
+jobs:
+  create_rc:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Send greeting
+      run: echo "Hello ${{ inputs.version }}"

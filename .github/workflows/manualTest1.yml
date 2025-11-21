@@ -33,7 +33,7 @@ jobs:
     #    git reset --hard ${{ inputs.from }}
 
     - name: Tag it as a new RC
-      run:
+      run: |
         git tag ${{ inputs.version }}
         git push origin tag ${{ inputs.version }}
       

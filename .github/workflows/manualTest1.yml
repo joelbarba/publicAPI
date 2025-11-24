@@ -30,10 +30,10 @@ jobs:
     # - name: Move PRE branch to new RC commit
     #  run:
     #    git checkout pre
-    #    git reset --hard ${{ inputs.from }}
+    #    git reset --hard {{ inputs.from }}
 
     - name: Tag it as a new RC
       run: |
         git tag ${{ inputs.version }}
-        git push origin tag ${{ inputs.version }}
+        git push origin tag {{ inputs.version }}
       
